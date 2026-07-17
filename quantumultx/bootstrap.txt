@@ -1,0 +1,68 @@
+Quantumult X 一次性接入说明
+
+本文件不是完整配置，不包含机场订阅地址、节点、密码或证书。
+完成以下接入后，应用规则会从 GitHub 每 86400 秒自动检查更新。
+
+一、在 [policy] 中加入 Discord 策略组
+
+static = Discord, 狮城节点, 香港节点, 日本节点, 美国节点, 台湾节点, 手动选择, 节点选择
+
+建议放在“电报代理”策略组下面。
+
+二、清理 [filter_local] 中旧的应用分流
+
+删除旧配置中手工写入的 OpenAI、Gemini、Claude、Copilot 相关 host/host-suffix 规则。
+尤其必须删除曾经错误指向 Gemini 的下列 YouTube/Google 公共资源规则：
+
+host, i.ytimg.com, Gemini
+host, yt3.ggpht.com, Gemini
+host, www.youtube.com, Gemini
+host, www.google.com, Gemini
+host, fonts.gstatic.com, Gemini
+host, www.gstatic.com, Gemini
+host, googleads.g.doubleclick.net, Gemini
+host, optimizationguide-pa.googleapis.com, Gemini
+
+[filter_local] 中保留中国大陆 IP 直连和最终规则即可，例如：
+
+GEOIP, CN, direct
+FINAL, 最终分流
+
+三、修改 [filter_remote]
+
+删除或禁用旧的 blackmatrix7 应用规则资源：
+
+OpenAI
+Claude
+Gemini
+Copilot
+TikTok
+Telegram
+
+在轻量广告拦截之后、苹果和媒体规则之前加入：
+
+https://raw.githubusercontent.com/LOXE1/proxy-rules/main/quantumultx/managed.list, tag=LOXE1自动分流, update-interval=86400, opt-parser=false, enabled=true
+
+以下资源继续保留：
+
+苹果服务
+亚洲媒体
+国内媒体
+国际媒体
+局域网直连
+中国大陆网站直连
+国外网站代理
+
+四、YouTube 设置
+
+默认不要加载 youtube-optional.list。YouTube 继续使用原有国际媒体/国外网站规则，避免固定到低带宽节点。
+同时删除或注释：
+
+udp_drop_list = QUIC
+
+以免强制禁止 YouTube 常用的 QUIC/HTTP3。
+
+五、首次刷新
+
+保存配置后，在 Quantumult X 的资源页面手动更新一次“LOXE1自动分流”，然后重新启动 Quantumult X。
+以后仓库中的 managed.list 更新后，客户端会按 update-interval 自动同步。
