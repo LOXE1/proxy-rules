@@ -1,18 +1,28 @@
 payload:
-  # Narrow Gemini/AI Studio rules only. Do not include broad google.com/googleapis.com/gstatic.com rules.
+  # Narrow Gemini/AI Studio rules only. Do not include broad google.com/googleapis.com/gstatic.com/youtube rules.
   - DOMAIN,gemini.google.com
   - DOMAIN-SUFFIX,bard.google.com
   - DOMAIN,ai.google.dev
   - DOMAIN,makersuite.google.com
   - DOMAIN,aistudio.google.com
+  - DOMAIN,gemini.gstatic.com
   - DOMAIN-SUFFIX,generativeai.google
   - DOMAIN-SUFFIX,deepmind.google
   - DOMAIN-SUFFIX,deepmind.com
   - DOMAIN,generativelanguage.googleapis.com
   - DOMAIN,proactivebackend-pa.googleapis.com
   - DOMAIN,alkalimakersuite-pa.clients6.google.com
+  - DOMAIN,alkalicore-pa.clients6.google.com
   - DOMAIN,webchannel-alkalimakersuite-pa.clients6.google.com
   - DOMAIN,robinfrontend-pa.googleapis.com
   - DOMAIN,aisandbox-pa.googleapis.com
   - DOMAIN,jnn-pa.googleapis.com
   - DOMAIN,waa-pa.clients6.google.com
+  - DOMAIN,geller-pa.googleapis.com
+  - DOMAIN,people-pa.clients6.google.com
+  - DOMAIN,oauthaccountmanager.googleapis.com
+  - DOMAIN,notifications-pa.googleapis.com
+  - DOMAIN,subscriptionsfirstparty-pa.googleapis.com
+  - DOMAIN,signaler-pa.googleapis.com
+  - DOMAIN,accounts.google.com
+  - DOMAIN,oauth2.googleapis.com
