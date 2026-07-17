@@ -1,6 +1,6 @@
 payload:
-  # Gemini / AI Studio + critical Google account/session endpoints.
-  # Keep YouTube/media/ads/maps/analytics out of this ruleset.
+  # Gemini / AI Studio dedicated endpoints only.
+  # Shared Google, login, YouTube, media, ads, maps and analytics stay on the original subscription rules.
   - DOMAIN,gemini.google.com
   - DOMAIN-SUFFIX,bard.google.com
   - DOMAIN,ai.google.dev
@@ -10,8 +10,6 @@ payload:
   - DOMAIN-SUFFIX,generativeai.google
   - DOMAIN-SUFFIX,deepmind.google
   - DOMAIN-SUFFIX,deepmind.com
-
-  # Gemini APIs / backends
   - DOMAIN,generativelanguage.googleapis.com
   - DOMAIN,proactivebackend-pa.googleapis.com
   - DOMAIN,alkalimakersuite-pa.clients6.google.com
@@ -23,23 +21,3 @@ payload:
   - DOMAIN,waa-pa.clients6.google.com
   - DOMAIN,geller-pa.googleapis.com
   - DOMAIN,people-pa.clients6.google.com
-  - DOMAIN,oauthaccountmanager.googleapis.com
-  - DOMAIN,notifications-pa.googleapis.com
-  - DOMAIN,subscriptionsfirstparty-pa.googleapis.com
-  - DOMAIN,signaler-pa.googleapis.com
-  - DOMAIN,play.googleapis.com
-
-  # Shared Google account/session hosts that must use the same egress as Gemini
-  - DOMAIN,accounts.google.com
-  - DOMAIN,oauth2.googleapis.com
-  - DOMAIN,www.google.com
-  - DOMAIN,ogs.google.com
-  - DOMAIN,apis.google.com
-  - DOMAIN,www.googleapis.com
-  - DOMAIN,play.google.com
-  - DOMAIN,mtalk.google.com
-  - DOMAIN,lh3.googleusercontent.com
-  - DOMAIN,lh5.googleusercontent.com
-
-  # Intentionally excluded: youtube.com, googlevideo.com, ytimg.com, ggpht.com,
-  # broad googleapis.com/gstatic.com/googleusercontent.com, ads, analytics and maps.
