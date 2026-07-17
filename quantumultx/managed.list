@@ -1,0 +1,100 @@
+# LOXE1/proxy-rules — Quantumult X managed application routing
+# YouTube is intentionally not included.
+
+# OpenAI / ChatGPT
+host-suffix,chatgpt.com,OpenAI
+host-suffix,openai.com,OpenAI
+host-suffix,oaistatic.com,OpenAI
+host-suffix,oaiusercontent.com,OpenAI
+host-suffix,oaistatsig.com,OpenAI
+host,cdn.openaimerge.com,OpenAI
+host,cdn.workos.com,OpenAI
+host,forwarder.workos.com,OpenAI
+host,images.workoscdn.com,OpenAI
+host,setup.workos.com,OpenAI
+host,workos.imgix.net,OpenAI
+
+# Gemini / AI Studio — narrow rules only
+host,gemini.google.com,Gemini
+host,bard.google.com,Gemini
+host,ai.google.dev,Gemini
+host,makersuite.google.com,Gemini
+host,aistudio.google.com,Gemini
+host-suffix,generativeai.google,Gemini
+host-suffix,deepmind.google,Gemini
+host-suffix,deepmind.com,Gemini
+host,generativelanguage.googleapis.com,Gemini
+host,proactivebackend-pa.googleapis.com,Gemini
+host,alkalimakersuite-pa.clients6.google.com,Gemini
+host,webchannel-alkalimakersuite-pa.clients6.google.com,Gemini
+host,robinfrontend-pa.googleapis.com,Gemini
+host,aisandbox-pa.googleapis.com,Gemini
+host,jnn-pa.googleapis.com,Gemini
+host,waa-pa.clients6.google.com,Gemini
+host,accounts.google.com,Gemini
+host,oauth2.googleapis.com,Gemini
+
+# Claude
+host-suffix,claude.ai,Claude
+host-suffix,claude.com,Claude
+host-suffix,claude.site,Claude
+host-suffix,claudeusercontent.com,Claude
+host-suffix,anthropic.com,Claude
+
+# Microsoft Copilot
+host-suffix,copilot.microsoft.com,Copilot
+host-suffix,copilot.cloud.microsoft,Copilot
+host-suffix,copilot.com,Copilot
+host,m365.cloud.microsoft,Copilot
+host,edgeservices.bing.com,Copilot
+host,gateway.bingviz.microsoft.net,Copilot
+host,gateway.bingviz.microsoftapp.net,Copilot
+host-suffix,api.microsoftapp.net,Copilot
+host,services.bingapis.com,Copilot
+host,sydney.bing.com,Copilot
+host,location.microsoft.com,Copilot
+host,api.msn.com,Copilot
+host,assets.msn.com,Copilot
+
+# Discord
+host-suffix,discord.com,Discord
+host-suffix,discord.gg,Discord
+host-suffix,discordapp.com,Discord
+host-suffix,discordapp.net,Discord
+host-suffix,discord.media,Discord
+host-suffix,discord.co,Discord
+host-suffix,dis.gd,Discord
+host-suffix,discordstatus.com,Discord
+
+# Telegram
+host-suffix,t.me,电报代理
+host-suffix,telegram.org,电报代理
+host-suffix,telegram.me,电报代理
+host-suffix,telesco.pe,电报代理
+ip-cidr,91.108.4.0/22,电报代理,no-resolve
+ip-cidr,91.108.8.0/22,电报代理,no-resolve
+ip-cidr,91.108.12.0/22,电报代理,no-resolve
+ip-cidr,91.108.16.0/22,电报代理,no-resolve
+ip-cidr,91.108.20.0/22,电报代理,no-resolve
+ip-cidr,91.108.56.0/22,电报代理,no-resolve
+ip-cidr,91.105.192.0/23,电报代理,no-resolve
+ip-cidr,149.154.160.0/20,电报代理,no-resolve
+ip-cidr,185.76.151.0/24,电报代理,no-resolve
+ip6-cidr,2001:b28:f23c::/48,电报代理,no-resolve
+ip6-cidr,2001:b28:f23d::/48,电报代理,no-resolve
+ip6-cidr,2001:b28:f23f::/48,电报代理,no-resolve
+ip6-cidr,2001:67c:4e8::/48,电报代理,no-resolve
+ip6-cidr,2a0a:f280::/32,电报代理,no-resolve
+
+# TikTok
+host-suffix,tiktok.com,TikTok
+host-suffix,tiktokv.com,TikTok
+host-suffix,tiktokcdn.com,TikTok
+host-suffix,tiktokcdn-us.com,TikTok
+host-suffix,musical.ly,TikTok
+host-suffix,muscdn.com,TikTok
+host-suffix,byteoversea.com,TikTok
+host-suffix,ibytedtos.com,TikTok
+host-suffix,ibyteimg.com,TikTok
+host-suffix,tlivecdn.com,TikTok
+host-suffix,ttwebview.com,TikTok
