@@ -1,5 +1,5 @@
 # LOXE1/proxy-rules — Quantumult X managed application routing
-# YouTube is intentionally not included.
+# Gemini and YouTube are intentionally not included; they use the original subscription rules.
 
 # OpenAI / ChatGPT
 host-suffix,chatgpt.com,OpenAI
@@ -13,29 +13,6 @@ host,forwarder.workos.com,OpenAI
 host,images.workoscdn.com,OpenAI
 host,setup.workos.com,OpenAI
 host,workos.imgix.net,OpenAI
-
-# Gemini / AI Studio — dedicated endpoints only
-# Shared Google/login/YouTube/media domains continue using the original subscription rules.
-host,gemini.google.com,Gemini
-host,bard.google.com,Gemini
-host,ai.google.dev,Gemini
-host,makersuite.google.com,Gemini
-host,aistudio.google.com,Gemini
-host,gemini.gstatic.com,Gemini
-host-suffix,generativeai.google,Gemini
-host-suffix,deepmind.google,Gemini
-host-suffix,deepmind.com,Gemini
-host,generativelanguage.googleapis.com,Gemini
-host,proactivebackend-pa.googleapis.com,Gemini
-host,alkalimakersuite-pa.clients6.google.com,Gemini
-host,alkalicore-pa.clients6.google.com,Gemini
-host,webchannel-alkalimakersuite-pa.clients6.google.com,Gemini
-host,robinfrontend-pa.googleapis.com,Gemini
-host,aisandbox-pa.googleapis.com,Gemini
-host,jnn-pa.googleapis.com,Gemini
-host,waa-pa.clients6.google.com,Gemini
-host,geller-pa.googleapis.com,Gemini
-host,people-pa.clients6.google.com,Gemini
 
 # Claude
 host-suffix,claude.ai,Claude
