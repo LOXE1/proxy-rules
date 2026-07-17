@@ -1,4 +1,5 @@
 payload:
+  # Telegram
   - DOMAIN-SUFFIX,t.me
   - DOMAIN-SUFFIX,telegram.org
   - DOMAIN-SUFFIX,telegram.me
