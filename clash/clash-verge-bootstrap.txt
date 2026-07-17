@@ -1,10 +1,13 @@
-// BUILD: github-managed-v1
+// BUILD: github-managed-v2-stable
 // 保存为 TXT 只是便于查看；内容仍应粘贴到 Clash Verge Rev 的“全局扩展脚本”。
+// 稳定原则：不拆分 Gemini/Google/YouTube；应用规则远程更新；敏感出口无节点时 REJECT。
 
 function main(config, profileName) {
   const TEST_URL = "https://www.gstatic.com/generate_204";
-  const INVALID_NODE_FILTER = "(?i)(剩余|流量|套餐|到期|有效期|官网|网址|重置|更新订阅|traffic|expire|website|reset|update)";
+  const INVALID_NODE_FILTER =
+    "(?i)(剩余|流量|套餐|到期|有效期|官网|网址|重置|更新订阅|traffic|expire|website|reset|update)";
 
+  // 不强制改写 TUN、DNS 或订阅原始通用规则，降低对普通网站和 YouTube 的影响。
   if (typeof config["tcp-concurrent"] === "undefined") config["tcp-concurrent"] = true;
   if (typeof config["find-process-mode"] === "undefined") config["find-process-mode"] = "strict";
 
@@ -20,38 +23,99 @@ function main(config, profileName) {
     IN: { regionGroup: "🇮🇳 印度｜自动或手动", autoGroup: "♻️ 印度｜最低延时", filter: "(?i)(🇮🇳|印度|India|Mumbai|Bombay|Delhi|Bangalore|Bengaluru|Chennai|Kolkata|孟买|孟買|新德里|\\bIN\\b)" }
   };
 
-  const APP_GROUPS = { OPENAI: "OpenAI", GEMINI: "Gemini", CLAUDE: "Claude", COPILOT: "Copilot", DISCORD: "Discord", TELEGRAM: "Telegram", TIKTOK: "TikTok" };
-  const FIXED_GROUPS = { VN: "🇻🇳 越南｜端口 10001", TH: "🇹🇭 泰国｜端口 10002", US: "🇺🇸 美国｜端口 10003" };
+  const APP_GROUPS = {
+    OPENAI: "OpenAI",
+    CLAUDE: "Claude",
+    COPILOT: "Copilot",
+    DISCORD: "Discord",
+    TELEGRAM: "Telegram",
+    TIKTOK: "TikTok"
+  };
+  const LEGACY_GROUP_NAMES = ["Gemini"];
+  const FIXED_GROUPS = {
+    VN: "🇻🇳 越南｜端口 10001",
+    TH: "🇹🇭 泰国｜端口 10002",
+    US: "🇺🇸 美国｜端口 10003"
+  };
 
   function makeAutoGroup(region) {
-    return { name: region.autoGroup, type: "url-test", url: TEST_URL, interval: 300, timeout: 5000, tolerance: 50, lazy: true, "max-failed-times": 3, "expected-status": 204, "include-all": true, filter: region.filter, "exclude-filter": INVALID_NODE_FILTER, "empty-fallback": "DIRECT", hidden: true };
-  }
-  function makeRegionGroup(region) {
-    return { name: region.regionGroup, type: "select", proxies: [region.autoGroup], "include-all": true, filter: region.filter, "exclude-filter": INVALID_NODE_FILTER, "empty-fallback": "DIRECT" };
-  }
-  function makeFixedPortGroup(name, region) {
-    return { name: name, type: "select", "include-all": true, filter: region.filter, "exclude-filter": INVALID_NODE_FILTER, "empty-fallback": "REJECT" };
-  }
-  function makeAppGroup(name, regionKeys) {
-    return { name: name, type: "select", proxies: regionKeys.map(function (key) { return REGIONS[key].regionGroup; }) };
+    return {
+      name: region.autoGroup,
+      type: "url-test",
+      url: TEST_URL,
+      interval: 300,
+      timeout: 5000,
+      tolerance: 50,
+      lazy: true,
+      "max-failed-times": 3,
+      "expected-status": 204,
+      "include-all": true,
+      filter: region.filter,
+      "exclude-filter": INVALID_NODE_FILTER,
+      "empty-fallback": "REJECT",
+      hidden: true
+    };
   }
 
-  const fixedPortGroups = [makeFixedPortGroup(FIXED_GROUPS.VN, REGIONS.VN), makeFixedPortGroup(FIXED_GROUPS.TH, REGIONS.TH), makeFixedPortGroup(FIXED_GROUPS.US, REGIONS.US)];
+  function makeRegionGroup(region) {
+    return {
+      name: region.regionGroup,
+      type: "select",
+      proxies: [region.autoGroup],
+      "include-all": true,
+      filter: region.filter,
+      "exclude-filter": INVALID_NODE_FILTER,
+      "empty-fallback": "REJECT"
+    };
+  }
+
+  function makeFixedPortGroup(name, region) {
+    return {
+      name: name,
+      type: "select",
+      "include-all": true,
+      filter: region.filter,
+      "exclude-filter": INVALID_NODE_FILTER,
+      "empty-fallback": "REJECT"
+    };
+  }
+
+  function makeAppGroup(name, regionKeys) {
+    return {
+      name: name,
+      type: "select",
+      proxies: regionKeys.map(function (key) { return REGIONS[key].regionGroup; })
+    };
+  }
+
+  const fixedPortGroups = [
+    makeFixedPortGroup(FIXED_GROUPS.VN, REGIONS.VN),
+    makeFixedPortGroup(FIXED_GROUPS.TH, REGIONS.TH),
+    makeFixedPortGroup(FIXED_GROUPS.US, REGIONS.US)
+  ];
+
   const applicationGroups = [
     makeAppGroup(APP_GROUPS.OPENAI, ["SG", "US", "JP", "TW", "HK"]),
-    makeAppGroup(APP_GROUPS.GEMINI, ["US", "SG", "JP", "TW", "HK"]),
     makeAppGroup(APP_GROUPS.CLAUDE, ["US", "SG", "JP", "TW", "HK"]),
     makeAppGroup(APP_GROUPS.COPILOT, ["US", "SG", "JP", "TW", "HK"]),
     makeAppGroup(APP_GROUPS.DISCORD, ["SG", "HK", "JP", "US", "TW"]),
     makeAppGroup(APP_GROUPS.TELEGRAM, ["SG", "HK", "JP", "US", "TW", "TH", "VN", "ID", "IN"]),
     makeAppGroup(APP_GROUPS.TIKTOK, ["ID", "IN", "TH", "VN", "US", "SG", "JP", "TW", "HK"])
   ];
+
   const regionGroups = Object.keys(REGIONS).map(function (key) { return makeRegionGroup(REGIONS[key]); });
   const autoGroups = Object.keys(REGIONS).map(function (key) { return makeAutoGroup(REGIONS[key]); });
   const managedGroups = fixedPortGroups.concat(applicationGroups, regionGroups, autoGroups);
   const managedGroupNames = managedGroups.map(function (group) { return group.name; });
   const oldGroups = Array.isArray(config["proxy-groups"]) ? config["proxy-groups"] : [];
-  config["proxy-groups"] = managedGroups.concat(oldGroups.filter(function (group) { return group && managedGroupNames.indexOf(group.name) === -1; }));
+
+  config["proxy-groups"] = managedGroups.concat(
+    oldGroups.filter(function (group) {
+      return group &&
+        managedGroupNames.indexOf(group.name) === -1 &&
+        LEGACY_GROUP_NAMES.indexOf(group.name) === -1;
+    })
+  );
 
   const fixedListeners = [
     { name: "env-vn-10001", type: "mixed", listen: "127.0.0.1", port: 10001, proxy: FIXED_GROUPS.VN, udp: true },
@@ -60,22 +124,32 @@ function main(config, profileName) {
   ];
   const fixedListenerNames = fixedListeners.map(function (listener) { return listener.name; });
   const oldListeners = Array.isArray(config.listeners) ? config.listeners : [];
-  config.listeners = oldListeners.filter(function (listener) { return listener && fixedListenerNames.indexOf(listener.name) === -1; }).concat(fixedListeners);
+  config.listeners = oldListeners
+    .filter(function (listener) {
+      return listener && fixedListenerNames.indexOf(listener.name) === -1;
+    })
+    .concat(fixedListeners);
 
   const RAW_BASE = "https://raw.githubusercontent.com/LOXE1/proxy-rules/main/clash/rules/";
   const managedProviders = {
     "pr-openai": { type: "http", behavior: "classical", format: "yaml", url: RAW_BASE + "openai.yaml", path: "./ruleset/proxy-rules/openai.yaml", interval: 86400 },
-    "pr-gemini": { type: "http", behavior: "classical", format: "yaml", url: RAW_BASE + "gemini.yaml", path: "./ruleset/proxy-rules/gemini.yaml", interval: 86400 },
     "pr-claude": { type: "http", behavior: "classical", format: "yaml", url: RAW_BASE + "claude.yaml", path: "./ruleset/proxy-rules/claude.yaml", interval: 86400 },
     "pr-copilot": { type: "http", behavior: "classical", format: "yaml", url: RAW_BASE + "copilot.yaml", path: "./ruleset/proxy-rules/copilot.yaml", interval: 86400 },
     "pr-discord": { type: "http", behavior: "classical", format: "yaml", url: RAW_BASE + "discord.yaml", path: "./ruleset/proxy-rules/discord.yaml", interval: 86400 },
     "pr-telegram": { type: "http", behavior: "classical", format: "yaml", url: RAW_BASE + "telegram.yaml", path: "./ruleset/proxy-rules/telegram.yaml", interval: 86400 },
     "pr-tiktok": { type: "http", behavior: "classical", format: "yaml", url: RAW_BASE + "tiktok.yaml", path: "./ruleset/proxy-rules/tiktok.yaml", interval: 86400 }
   };
+
   const oldProviders = config["rule-providers"] || {};
   const cleanedProviders = {};
   Object.keys(oldProviders).forEach(function (name) {
-    if (name.indexOf("pr-") !== 0 && name.indexOf("cv-ai-") !== 0 && name.indexOf("cv-app-") !== 0) cleanedProviders[name] = oldProviders[name];
+    if (
+      name.indexOf("pr-") !== 0 &&
+      name.indexOf("cv-ai-") !== 0 &&
+      name.indexOf("cv-app-") !== 0
+    ) {
+      cleanedProviders[name] = oldProviders[name];
+    }
   });
   config["rule-providers"] = Object.assign({}, cleanedProviders, managedProviders);
 
@@ -88,7 +162,6 @@ function main(config, profileName) {
     "PROCESS-NAME,Telegram," + APP_GROUPS.TELEGRAM,
     "PROCESS-NAME,telegram-desktop," + APP_GROUPS.TELEGRAM,
     "RULE-SET,pr-openai," + APP_GROUPS.OPENAI,
-    "RULE-SET,pr-gemini," + APP_GROUPS.GEMINI,
     "RULE-SET,pr-claude," + APP_GROUPS.CLAUDE,
     "RULE-SET,pr-copilot," + APP_GROUPS.COPILOT,
     "RULE-SET,pr-discord," + APP_GROUPS.DISCORD,
@@ -96,14 +169,26 @@ function main(config, profileName) {
     "RULE-SET,pr-tiktok," + APP_GROUPS.TIKTOK
   ];
 
-  const managedPolicies = Object.keys(APP_GROUPS).map(function (key) { return APP_GROUPS[key]; });
+  const managedPolicies = Object.keys(APP_GROUPS)
+    .map(function (key) { return APP_GROUPS[key]; })
+    .concat(LEGACY_GROUP_NAMES);
   const oldRules = Array.isArray(config.rules) ? config.rules : [];
   const cleanedRules = oldRules.filter(function (rule) {
     if (typeof rule !== "string") return true;
-    if (rule.indexOf("RULE-SET,pr-") === 0 || rule.indexOf("RULE-SET,cv-ai-") === 0 || rule.indexOf("RULE-SET,cv-app-") === 0) return false;
+    if (
+      rule.indexOf("RULE-SET,pr-") === 0 ||
+      rule.indexOf("RULE-SET,cv-ai-") === 0 ||
+      rule.indexOf("RULE-SET,cv-app-") === 0
+    ) {
+      return false;
+    }
+
     const parts = rule.split(",");
     if (parts.length >= 3) {
-      const policy = parts[parts.length - 1] === "no-resolve" ? parts[parts.length - 2] : parts[parts.length - 1];
+      const policy =
+        parts[parts.length - 1] === "no-resolve"
+          ? parts[parts.length - 2]
+          : parts[parts.length - 1];
       if (managedPolicies.indexOf(policy) !== -1) return false;
     }
     return true;
