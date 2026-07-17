@@ -14,7 +14,8 @@ host,images.workoscdn.com,OpenAI
 host,setup.workos.com,OpenAI
 host,workos.imgix.net,OpenAI
 
-# Gemini / AI Studio + critical Google account/session endpoints
+# Gemini / AI Studio — dedicated endpoints only
+# Shared Google/login/YouTube/media domains continue using the original subscription rules.
 host,gemini.google.com,Gemini
 host,bard.google.com,Gemini
 host,ai.google.dev,Gemini
@@ -24,8 +25,6 @@ host,gemini.gstatic.com,Gemini
 host-suffix,generativeai.google,Gemini
 host-suffix,deepmind.google,Gemini
 host-suffix,deepmind.com,Gemini
-
-# Gemini APIs / backends
 host,generativelanguage.googleapis.com,Gemini
 host,proactivebackend-pa.googleapis.com,Gemini
 host,alkalimakersuite-pa.clients6.google.com,Gemini
@@ -37,23 +36,6 @@ host,jnn-pa.googleapis.com,Gemini
 host,waa-pa.clients6.google.com,Gemini
 host,geller-pa.googleapis.com,Gemini
 host,people-pa.clients6.google.com,Gemini
-host,oauthaccountmanager.googleapis.com,Gemini
-host,notifications-pa.googleapis.com,Gemini
-host,subscriptionsfirstparty-pa.googleapis.com,Gemini
-host,signaler-pa.googleapis.com,Gemini
-host,play.googleapis.com,Gemini
-
-# Shared Google account/session hosts; keep the same egress as Gemini
-host,accounts.google.com,Gemini
-host,oauth2.googleapis.com,Gemini
-host,www.google.com,Gemini
-host,ogs.google.com,Gemini
-host,apis.google.com,Gemini
-host,www.googleapis.com,Gemini
-host,play.google.com,Gemini
-host,mtalk.google.com,Gemini
-host,lh3.googleusercontent.com,Gemini
-host,lh5.googleusercontent.com,Gemini
 
 # Claude
 host-suffix,claude.ai,Claude
