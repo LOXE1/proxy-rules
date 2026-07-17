@@ -1,0 +1,8 @@
+# Optional YouTube routing. Do not enable unless you intentionally want a dedicated 国际媒体 route.
+host-suffix,youtube.com,国际媒体
+host-suffix,youtu.be,国际媒体
+host-suffix,googlevideo.com,国际媒体
+host-suffix,ytimg.com,国际媒体
+host-suffix,youtube-nocookie.com,国际媒体
+host,yt3.ggpht.com,国际媒体
+host,youtubei.googleapis.com,国际媒体
