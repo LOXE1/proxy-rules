@@ -1,0 +1,114 @@
+{
+  "version": 2,
+  "description": "Single source of truth for LOXE1 proxy application rules. Gemini/Google/YouTube are intentionally excluded.",
+  "apps": [
+    {
+      "id": "openai",
+      "title": "OpenAI / ChatGPT",
+      "qx_policy": "OpenAI",
+      "rules": [
+        {"type": "DOMAIN-SUFFIX", "value": "chatgpt.com"},
+        {"type": "DOMAIN-SUFFIX", "value": "openai.com"},
+        {"type": "DOMAIN-SUFFIX", "value": "oaistatic.com"},
+        {"type": "DOMAIN-SUFFIX", "value": "oaiusercontent.com"},
+        {"type": "DOMAIN-SUFFIX", "value": "oaistatsig.com"},
+        {"type": "DOMAIN", "value": "cdn.openaimerge.com"},
+        {"type": "DOMAIN", "value": "cdn.workos.com"},
+        {"type": "DOMAIN", "value": "forwarder.workos.com"},
+        {"type": "DOMAIN", "value": "images.workoscdn.com"},
+        {"type": "DOMAIN", "value": "setup.workos.com"},
+        {"type": "DOMAIN", "value": "workos.imgix.net"}
+      ]
+    },
+    {
+      "id": "claude",
+      "title": "Claude / Anthropic",
+      "qx_policy": "Claude",
+      "rules": [
+        {"type": "DOMAIN-SUFFIX", "value": "claude.ai"},
+        {"type": "DOMAIN-SUFFIX", "value": "claude.com"},
+        {"type": "DOMAIN-SUFFIX", "value": "claude.site"},
+        {"type": "DOMAIN-SUFFIX", "value": "claudeusercontent.com"},
+        {"type": "DOMAIN-SUFFIX", "value": "anthropic.com"}
+      ]
+    },
+    {
+      "id": "copilot",
+      "title": "Microsoft Copilot",
+      "qx_policy": "Copilot",
+      "rules": [
+        {"type": "DOMAIN-SUFFIX", "value": "copilot.microsoft.com"},
+        {"type": "DOMAIN-SUFFIX", "value": "copilot.cloud.microsoft"},
+        {"type": "DOMAIN-SUFFIX", "value": "copilot.com"},
+        {"type": "DOMAIN", "value": "m365.cloud.microsoft"},
+        {"type": "DOMAIN-SUFFIX", "value": "edgeservices.bing.com"},
+        {"type": "DOMAIN", "value": "gateway.bingviz.microsoft.net"},
+        {"type": "DOMAIN", "value": "gateway.bingviz.microsoftapp.net"},
+        {"type": "DOMAIN-SUFFIX", "value": "api.microsoftapp.net"},
+        {"type": "DOMAIN", "value": "services.bingapis.com"},
+        {"type": "DOMAIN", "value": "sydney.bing.com"},
+        {"type": "DOMAIN", "value": "location.microsoft.com"},
+        {"type": "DOMAIN", "value": "api.msn.com"},
+        {"type": "DOMAIN", "value": "assets.msn.com"}
+      ]
+    },
+    {
+      "id": "discord",
+      "title": "Discord",
+      "qx_policy": "Discord",
+      "rules": [
+        {"type": "DOMAIN-SUFFIX", "value": "discord.com"},
+        {"type": "DOMAIN-SUFFIX", "value": "discord.gg"},
+        {"type": "DOMAIN-SUFFIX", "value": "discordapp.com"},
+        {"type": "DOMAIN-SUFFIX", "value": "discordapp.net"},
+        {"type": "DOMAIN-SUFFIX", "value": "discord.media"},
+        {"type": "DOMAIN-SUFFIX", "value": "discord.co"},
+        {"type": "DOMAIN-SUFFIX", "value": "dis.gd"},
+        {"type": "DOMAIN-SUFFIX", "value": "discordstatus.com"}
+      ]
+    },
+    {
+      "id": "telegram",
+      "title": "Telegram",
+      "qx_policy": "电报代理",
+      "rules": [
+        {"type": "DOMAIN-SUFFIX", "value": "t.me"},
+        {"type": "DOMAIN-SUFFIX", "value": "telegram.org"},
+        {"type": "DOMAIN-SUFFIX", "value": "telegram.me"},
+        {"type": "DOMAIN-SUFFIX", "value": "telesco.pe"},
+        {"type": "IP-CIDR", "value": "91.108.4.0/22", "no_resolve": true},
+        {"type": "IP-CIDR", "value": "91.108.8.0/22", "no_resolve": true},
+        {"type": "IP-CIDR", "value": "91.108.12.0/22", "no_resolve": true},
+        {"type": "IP-CIDR", "value": "91.108.16.0/22", "no_resolve": true},
+        {"type": "IP-CIDR", "value": "91.108.20.0/22", "no_resolve": true},
+        {"type": "IP-CIDR", "value": "91.108.56.0/22", "no_resolve": true},
+        {"type": "IP-CIDR", "value": "91.105.192.0/23", "no_resolve": true},
+        {"type": "IP-CIDR", "value": "149.154.160.0/20", "no_resolve": true},
+        {"type": "IP-CIDR", "value": "185.76.151.0/24", "no_resolve": true},
+        {"type": "IP-CIDR6", "value": "2001:b28:f23c::/48", "no_resolve": true},
+        {"type": "IP-CIDR6", "value": "2001:b28:f23d::/48", "no_resolve": true},
+        {"type": "IP-CIDR6", "value": "2001:b28:f23f::/48", "no_resolve": true},
+        {"type": "IP-CIDR6", "value": "2001:67c:4e8::/48", "no_resolve": true},
+        {"type": "IP-CIDR6", "value": "2a0a:f280::/32", "no_resolve": true}
+      ]
+    },
+    {
+      "id": "tiktok",
+      "title": "TikTok",
+      "qx_policy": "TikTok",
+      "rules": [
+        {"type": "DOMAIN-SUFFIX", "value": "tiktok.com"},
+        {"type": "DOMAIN-SUFFIX", "value": "tiktokv.com"},
+        {"type": "DOMAIN-SUFFIX", "value": "tiktokcdn.com"},
+        {"type": "DOMAIN-SUFFIX", "value": "tiktokcdn-us.com"},
+        {"type": "DOMAIN-SUFFIX", "value": "musical.ly"},
+        {"type": "DOMAIN-SUFFIX", "value": "muscdn.com"},
+        {"type": "DOMAIN-SUFFIX", "value": "byteoversea.com"},
+        {"type": "DOMAIN-SUFFIX", "value": "ibytedtos.com"},
+        {"type": "DOMAIN-SUFFIX", "value": "ibyteimg.com"},
+        {"type": "DOMAIN-SUFFIX", "value": "tlivecdn.com"},
+        {"type": "DOMAIN-SUFFIX", "value": "ttwebview.com"}
+      ]
+    }
+  ]
+}
