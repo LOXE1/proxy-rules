@@ -1,0 +1,23 @@
+# LOXE1 Quantumult X high-priority supplements / corrections v3
+# Keep this list small. Blackmatrix7 remains the main upstream rule source.
+
+# OpenAI supplements
+host-suffix,oaistatsig.com,OpenAI
+
+# Claude supplements missing from the upstream atomic list
+host-suffix,claude.com,Claude
+host-suffix,claude.site,Claude
+host-suffix,claudeusercontent.com,Claude
+
+# Precise Microsoft Copilot endpoints.
+# Do not import blackmatrix7 Copilot.list here because it also contains many OpenAI/shared domains.
+host-suffix,copilot.microsoft.com,Microsoft服务
+host-suffix,copilot.cloud.microsoft,Microsoft服务
+host-suffix,copilot.com,Microsoft服务
+host,m365.cloud.microsoft,Microsoft服务
+host-suffix,edgeservices.bing.com,Microsoft服务
+host,services.bingapis.com,Microsoft服务
+host,sydney.bing.com,Microsoft服务
+host,gateway.bingviz.microsoft.net,Microsoft服务
+host,gateway.bingviz.microsoftapp.net,Microsoft服务
+host-suffix,api.microsoftapp.net,Microsoft服务
